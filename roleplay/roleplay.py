@@ -262,6 +262,12 @@ class Roleplay(BaseCog):
                 "https://media.tenor.com/qE3sYVzhFH8AAAAC/kick.gif",
                 "https://media.tenor.com/IlaJyD0XEMwAAAAC/index-anime.gif",
             ],
+            "punch": [
+                "https://media.tenor.com/BoYBoopIkBcAAAAC/anime-smash.gif",
+                "https://media.tenor.com/UH8Jnl1W3CYAAAAC/anime-punch-anime.gif",
+                "https://media.tenor.com/SwMgGqBirvcAAAAC/saki-saki-kanojo-mo-kanojo.gif",
+                "https://media.tenor.com/EvBn8m3xR1cAAAAC/toradora-punch.gif",
+            ]
         }
         self.config.register_global(**default_global)
 
@@ -490,6 +496,22 @@ class Roleplay(BaseCog):
         # Build Embed
         embed = discord.Embed()
         embed.description = f"**{author.mention} kicks {user.mention}**"
+        embed.set_image(url=images[i])
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
+    async def punch(self, ctx, *, user: discord.Member):
+        """Punch a user in the face!"""
+
+        author = ctx.message.author
+        images = await self.config.punch()
+        mn = len(images)
+        i = randint(0, mn - 1)
+
+        # Build Embed
+        embed = discord.Embed()
+        embed.description = f"**{author.mention} punches {user.mention}**"
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
