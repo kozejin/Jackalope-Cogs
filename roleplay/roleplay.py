@@ -256,6 +256,12 @@ class Roleplay(BaseCog):
                 "https://media1.tenor.com/images/d9b3127da3f9419cbb28f9f7c00860d8/tenor.gif?itemid=9588226",
                 "https://media1.tenor.com/images/0097fa7f957477f9edc5ff147bb9a5ad/tenor.gif?itemid=12390496",
             ],
+            "kicks": [
+                "https://media.tenor.com/KBo6zdxSC3MAAAAd/spy-x-family-loid-forger.gif",
+                "https://media.tenor.com/CJj7Ik-0zFEAAAAC/navibot-kick.gif",
+                "https://media.tenor.com/qE3sYVzhFH8AAAAC/kick.gif",
+                "https://media.tenor.com/IlaJyD0XEMwAAAAC/index-anime.gif",
+            ],
         }
         self.config.register_global(**default_global)
 
@@ -468,6 +474,22 @@ class Roleplay(BaseCog):
         # Build Embed
         embed = discord.Embed()
         embed.description = f"**{author.mention} is smug**"
+        embed.set_image(url=images[i])
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
+    async def kicks(self, ctx, *, user: discord.Member):
+        """Kicks that bully in the butt!"""
+
+        author = ctx.message.author
+        images = await self.config.kicks()
+        mn = len(images)
+        i = randint(0, mn - 1)
+
+        # Build Embed
+        embed = discord.Embed()
+        embed.description = f"**{author.mention} kicks {user.mention}**"
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
