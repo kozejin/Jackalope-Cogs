@@ -31,26 +31,15 @@ class Roleplay(BaseCog):
                 "https://cdn.weeb.sh/images/rJaog0FtZ.gif",
                 "https://cdn.weeb.sh/images/Hyv6uOQPZ.gif",
                 "https://cdn.weeb.sh/images/BJx2l0ttW.gif",
-                "https://media.giphy.com/media/iviBUyNqP46Aw/giphy.gif",
                 "https://media.giphy.com/media/wnsgren9NtITS/giphy.gif",
                 "https://media.giphy.com/media/svXXBgduBsJ1u/giphy.gif",
                 "https://media.giphy.com/media/3ZnBrkqoaI2hq/giphy.gif",
                 "https://media.giphy.com/media/3o6ZsTopjMRVkJXAWI/giphy.gif",
                 "https://media.giphy.com/media/od5H3PmEG5EVq/giphy.gif",
                 "https://media.giphy.com/media/vVA8U5NnXpMXK/giphy.gif",
-                "https://media.giphy.com/media/aVmEsdMmCTqSs/giphy.gif",
                 "https://media.giphy.com/media/ZQN9jsRWp1M76/giphy.gif",
                 "https://media.giphy.com/media/DjczAlIcyK1Co/giphy.gif",
-                "https://media.giphy.com/media/ba92ty7qnNcXu/giphy.gif",
                 "https://media.giphy.com/media/C4gbG94zAjyYE/giphy.gif",
-                "https://i.imgur.com/4Y50gzE.gif",
-                "https://i.imgur.com/OrpyAfa.gif",
-                "https://i.imgur.com/aA8mTuX.gif",
-                "https://i.imgur.com/fm9PHyr.gif",
-                "https://i.imgur.com/tCuAWNW.gif",
-                "https://i.imgur.com/BPMTcq7.gif",
-                "https://i.imgur.com/V1fd9oP.gif",
-                "https://i.imgur.com/OSDidQJ.gif",
                 "https://i.imgur.com/hM1LcZf.gif",
                 "https://i.imgur.com/cRfX87T.gif",
                 "https://cdn.weeb.sh/images/HyNJIaVCb.gif",
@@ -63,7 +52,6 @@ class Roleplay(BaseCog):
                 "https://cdn.weeb.sh/images/HJTWcTNCZ.gif",
                 "https://cdn.weeb.sh/images/rko9O_mwW.gif",
                 "https://cdn.weeb.sh/images/rkx1dJ25z.gif",
-                "https://media.giphy.com/media/KMQoRt68bFei4/giphy.gif",
                 "https://cdn.weeb.sh/images/BkZngAYtb.gif",
             ],
             "cuddle": [
@@ -271,9 +259,9 @@ class Roleplay(BaseCog):
         }
         self.config.register_global(**default_global)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def hugs(self, ctx, *, user: discord.Member):
+    async def hugs(self, ctx: commands.Context, *, user: discord.Member):
         """Hugs a user!"""
 
         author = ctx.message.author
@@ -291,9 +279,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def cuddle(self, ctx, *, user: discord.Member):
+    async def cuddle(self, ctx: commands.Context, *, user: discord.Member):
         """Cuddles a user!"""
 
         author = ctx.message.author
@@ -311,9 +299,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def kiss(self, ctx, *, user: discord.Member):
+    async def kiss(self, ctx: commands.Context, *, user: discord.Member):
         """Kiss a user!"""
 
         author = ctx.message.author
@@ -331,9 +319,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def slap(self, ctx, *, user: discord.Member):
+    async def slap(self, ctx: commands.Context, *, user: discord.Member):
         """Slaps a user!"""
 
         author = ctx.message.author
@@ -351,9 +339,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def pat(self, ctx, *, user: discord.Member):
+    async def pat(self, ctx: commands.Context, *, user: discord.Member):
         """Pats a user!"""
 
         author = ctx.message.author
@@ -371,9 +359,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def lick(self, ctx, *, user: discord.Member):
+    async def lick(self, ctx: commands.Context, *, user: discord.Member):
         """Licks a user!"""
 
         author = ctx.message.author
@@ -387,9 +375,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def highfive(self, ctx, *, user: discord.Member):
+    async def highfive(self, ctx: commands.Context, *, user: discord.Member):
         """Highfives a user!"""
 
         author = ctx.message.author
@@ -403,9 +391,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def feed(self, ctx, *, user: discord.Member):
+    async def feed(self, ctx: commands.Context, *, user: discord.Member):
         """Feeds a user!"""
 
         author = ctx.message.author
@@ -423,9 +411,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def tickle(self, ctx, *, user: discord.Member):
+    async def tickle(self, ctx: commands.Context, *, user: discord.Member):
         """Tickles a user!"""
 
         author = ctx.message.author
@@ -443,9 +431,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def poke(self, ctx, *, user: discord.Member):
+    async def poke(self, ctx: commands.Context, *, user: discord.Member):
         """Pokes a user!"""
 
         author = ctx.message.author
@@ -463,7 +451,7 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
     async def smug(self, ctx):
         """Be smug towards someone!"""
@@ -483,9 +471,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def kicks(self, ctx, *, user: discord.Member):
+    async def kicks(self, ctx: commands.Context, *, user: discord.Member):
         """Kicks that bully in the butt!"""
 
         author = ctx.message.author
