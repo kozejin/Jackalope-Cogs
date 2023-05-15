@@ -499,9 +499,9 @@ class Roleplay(BaseCog):
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.bot_has_permissions(embed_links=True)
-    async def punch(self, ctx, *, user: discord.Member):
+    async def punch(self, ctx: commands.Context, *, user: discord.Member):
         """Punch a user in the face!"""
 
         author = ctx.message.author
