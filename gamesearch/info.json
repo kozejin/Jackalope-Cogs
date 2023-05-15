@@ -1,0 +1,10 @@
+{
+  "author" : ["Jackalope Bot"],
+  "bot_version": [3,5,0],
+  "install_msg" : "Installed games, rock and roll!",
+  "short" : "Display game information from Rawg",
+  "description" : "Displays information about games from Rawg with reaction menus",
+  "tags" : ["games", "information"],
+  "requirements": ["aiocache"],
+  "hidden" : false
+}

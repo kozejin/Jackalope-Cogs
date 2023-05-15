@@ -1,0 +1,7 @@
+{
+    "author" : ["Jintaku", "Jackalope"],
+    "install_msg" : "Jackalope repo have been added.",
+    "name" : "Jackalope-Cogs",
+    "short" : "Cogs for the Jackalope bot.",
+    "description" : "Cogs for the Jackalope bot."
+}
