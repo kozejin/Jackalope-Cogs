@@ -17,7 +17,7 @@ class Gamesearch(BaseCog):
         default_global = {"apikey": ""}
         self.config.register_global(**default_global)
         
-    @commands.command()
+    @commands.hybrid_command()
     @cached(ttl=86400, cache=SimpleMemoryCache)
     @commands.bot_has_permissions(embed_links=True, add_reactions=True)
     async def game(self, ctx, *, game):

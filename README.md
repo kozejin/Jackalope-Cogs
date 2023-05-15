@@ -37,3 +37,7 @@
 ## Pokemon
 
 * `[p]pokemon <name_or_ID>` - Displays pokemon entries
+
+## Credits
+
+Jintaku - Original Cogs
