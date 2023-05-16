@@ -255,7 +255,14 @@ class Roleplay(BaseCog):
                 "https://media.tenor.com/UH8Jnl1W3CYAAAAC/anime-punch-anime.gif",
                 "https://media.tenor.com/SwMgGqBirvcAAAAC/saki-saki-kanojo-mo-kanojo.gif",
                 "https://media.tenor.com/EvBn8m3xR1cAAAAC/toradora-punch.gif",
-            ]
+            ],
+            "shrug": [
+                "https://media.tenor.com/TMczSTtaXxgAAAAC/naruto-kakashi.gif",
+                "https://media.tenor.com/zYK9-2LYTiYAAAAC/idk-killua.gif",
+                "https://media.tenor.com/ro_hU0bAoxMAAAAd/shrug.gif",
+                "https://media.tenor.com/U8ZEjbZdixcAAAAC/jujutsu-kaisen-kenjaku.gif",
+                "https://media.tenor.com/zxLvtngh-M4AAAAC/kakegurui-anime.gif",
+            ],
         }
         self.config.register_global(**default_global)
 
@@ -500,6 +507,22 @@ class Roleplay(BaseCog):
         # Build Embed
         embed = discord.Embed()
         embed.description = f"**{author.mention} punches {user.mention}**"
+        embed.set_image(url=images[i])
+        await ctx.send(embed=embed)
+
+    @commands.hybrid_command()
+    @commands.bot_has_permissions(embed_links=True)
+    async def shrug(self, ctx):
+        """Who knows ¯\_(ツ)_/¯"""
+
+        author = ctx.message.author
+        images = await self.config.shrug()
+        mn = len(images)
+        i = randint(0, mn - 1)
+
+        # Build Embed
+        embed = discord.Embed()
+        embed.description = f"**{author.mention} shrugs**"
         embed.set_image(url=images[i])
         await ctx.send(embed=embed)
 
