@@ -1,9 +1,10 @@
 {
   "author": ["Jackalope Bot"],
-  "bot_version": [3,5,0],
+  "min_bot_version": "3.5.0",
   "description": "You can search anime, manga, users and characters from Anilist!",
   "hidden": false,
   "install_msg": "Installed Anisearch! Have fun.",
   "short": "Search Anilist for anime, manga, users, characters",
-  "tags" : ["anime", "manga", "anilist", "list"]
+  "tags" : ["anime", "manga", "anilist", "list"],
+  "end_user_data_statement": "This cog does not persistently store data about users."
 }
