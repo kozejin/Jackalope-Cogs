@@ -20,7 +20,7 @@ class Gamesearch(BaseCog):
     @commands.command()
     @cached(ttl=86400, cache=SimpleMemoryCache)
     @commands.bot_has_permissions(embed_links=True, add_reactions=True)
-    async def game(self, ctx, *, game):
+    async def game(self, ctx: commands.Context, *, game):
         """Search Rawg.io for games"""
         
         # Get API key

@@ -1,4 +1,5 @@
-# Cog list
+# Jackalope Cog List
+This is a private repo for Jackalope Bot. The visibility will change depending on when I'm applying updates.
 
 ## AniSearch
 
@@ -28,6 +29,10 @@
 * `[p]lick` - Licks a user!
 * `[p]pat` - Pats a user!
 * `[p]slap` - Slaps a user!
+* `[p]kicks` - Kick a user!
+* `[p]punch` - Punch a user!
+* `[p]smug` - You're smug!
+* `[p]shrug` - You shrug!
 
 ## Gamesearch
 
@@ -37,3 +42,7 @@
 ## Pokemon
 
 * `[p]pokemon <name_or_ID>` - Displays pokemon entries
+
+## Credits
+
+Jintaku - Original Cogs

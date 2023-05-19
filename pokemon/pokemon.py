@@ -11,7 +11,7 @@ BaseCog = getattr(commands, "Cog", object)
 class Pokemon(BaseCog):
     """Show Pokemon info"""
 
-    @commands.command()
+    @commands.hybrid_command()
     @cached(ttl=3600, cache=SimpleMemoryCache)
     @commands.bot_has_permissions(embed_links=True)
     async def pokedex(self, ctx, name_or_id):
