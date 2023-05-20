@@ -40,9 +40,9 @@ class D2Scraper(commands.Cog):
 
             # Find the item information
             if found_item:
-                item_info_elements = row.find_all("font", face="arial,helvetica", size="-1")
-                for info_element in item_info_elements:
-                    item_info.append(info_element.text.strip())
+                item_info_element = row.find("font", face="arial,helvetica", size="-1")
+                if item_info_element:
+                    item_info.append(item_info_element.text.strip())
 
         # If the item was found, send the item details as a message
         if found_item:
