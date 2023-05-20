@@ -47,8 +47,9 @@ class D2Scraper(commands.Cog):
                     embed = discord.Embed(title=current_item_name, color=discord.Color.green())
                     if item_image_url:
                         embed.set_thumbnail(url=item_image_url)
-                    for stat in item_stats:
-                        embed.add_field(name="\u200b", value=stat, inline=False)
+                    if item_stats:
+                        item_stats_str = "\n".join(item_stats)
+                        embed.description = item_stats_str.replace("\n", "\u200b\n")
                     await ctx.send(embed=embed)
                     return
 
