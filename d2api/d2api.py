@@ -4,12 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 
 class D2Scraper(commands.Cog):
-import discord
-from discord.ext import commands
-import requests
-from bs4 import BeautifulSoup
-
-class Diablo2Cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
