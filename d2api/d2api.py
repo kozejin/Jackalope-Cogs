@@ -30,11 +30,11 @@ class D2Scraper(commands.Cog):
             if item_name_element:
                 current_item_name = item_name_element.text.strip()
                 if item_name.lower() in current_item_name.lower():
-                    item_stats_element = row.find_next_sibling("tr").find("td")
-                    if item_stats_element:
-                        item_stats = item_stats_element.text.strip()
-                    else:
-                        item_stats = None
+                    item_stats_elements = row.find_next_siblings("tr")
+                    item_stats = []
+                    for stats_element in item_stats_elements:
+                        if stats_element.find("td"):
+                            item_stats.append(stats_element.find("td").text.strip())
 
                     # Find the item image
                     img_element = row.find("img")
@@ -47,8 +47,8 @@ class D2Scraper(commands.Cog):
                     embed = discord.Embed(title=current_item_name, color=discord.Color.green())
                     if item_image_url:
                         embed.set_thumbnail(url=item_image_url)
-                    if item_stats:
-                        embed.description = item_stats
+                    for stat in item_stats:
+                        embed.add_field(name="\u200b", value=stat, inline=False)
                     await ctx.send(embed=embed)
                     return
 
