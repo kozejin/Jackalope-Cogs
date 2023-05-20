@@ -25,16 +25,19 @@ class D2Scraper(commands.Cog):
 
         # Iterate over each row and extract the item details
         for row in rows:
-            # Find the item name and stats
+            # Find the item name
             item_name_element = row.find("b")
             if item_name_element:
                 current_item_name = item_name_element.text.strip()
                 if item_name.lower() in current_item_name.lower():
                     item_stats_element = row.find("td", align="left")
                     if item_stats_element:
-                        item_stats = item_stats_element.text.strip()
+                        item_stats = item_stats_element.find_all("font")
+                        description = ""
+                        for stat in item_stats:
+                            description += stat.text.strip() + "\n"
                     else:
-                        item_stats = None
+                        description = None
 
                     # Find the item image
                     img_element = row.find("img")
@@ -44,11 +47,9 @@ class D2Scraper(commands.Cog):
                         item_image_url = None
 
                     # Send the item details as a message
-                    embed = discord.Embed(title=current_item_name, color=discord.Color.green())
+                    embed = discord.Embed(title=current_item_name, description=description, color=discord.Color.green())
                     if item_image_url:
                         embed.set_thumbnail(url=item_image_url)
-                    if item_stats:
-                        embed.description = item_stats
                     await ctx.send(embed=embed)
                     return
 
