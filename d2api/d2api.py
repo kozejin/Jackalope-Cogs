@@ -48,8 +48,8 @@ class D2Scraper(commands.Cog):
                     if item_image_url:
                         embed.set_thumbnail(url=item_image_url)
                     if item_stats:
-                        item_stats_str = "\n".join(item_stats)
-                        embed.description = item_stats_str.replace("\n", "\u200b\n")
+                        item_stats_str = "\n".join([f"\u00A0{stat}" for stat in item_stats])
+                        embed.description = item_stats_str
                     await ctx.send(embed=embed)
                     return
 
