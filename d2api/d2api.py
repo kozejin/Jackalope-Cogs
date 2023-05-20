@@ -32,8 +32,17 @@ class D2Scraper(commands.Cog):
                 if item_name.lower() in current_item_name.lower():
                     item_stats = row.find("font").text.strip()
 
+                    # Find the item image
+                    img_element = row.find("img")
+                    if img_element:
+                        item_image_url = "https://classic.battle.net" + img_element["src"]
+                    else:
+                        item_image_url = None
+
                     # Send the item details as a message
                     embed = discord.Embed(title=current_item_name, description=item_stats, color=discord.Color.green())
+                    if item_image_url:
+                        embed.set_image(url=item_image_url)
                     await ctx.send(embed=embed)
                     return
 
