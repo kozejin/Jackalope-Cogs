@@ -8,7 +8,9 @@ class D2Scraper(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def item(self, ctx, item_name):
+    async def item(self, ctx, *item_name):
+        item_name = " ".join(item_name)  # Join the words in the item name
+
         url = "https://classic.battle.net/diablo2exp/items/elite/uhelms.shtml"
 
         # Send a GET request to the URL and retrieve the page HTML
@@ -27,7 +29,7 @@ class D2Scraper(commands.Cog):
             item_name_element = row.find("b")
             if item_name_element:
                 current_item_name = item_name_element.text.strip()
-                if current_item_name.lower() == item_name.lower():
+                if item_name.lower() in current_item_name.lower():
                     item_stats = row.find("font").text.strip()
 
                     # Send the item details as a message
