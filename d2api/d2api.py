@@ -39,10 +39,8 @@ class D2Scraper(commands.Cog):
             if item_name_element:
                 current_item_name = item_name_element.text.strip().lower()
                 if item_name in current_item_name:
-                    item_info_elements = row.find_all("font", face="arial,helvetica", size="-1")
-                    item_info = []
-                    for info_element in item_info_elements:
-                        item_info.append(info_element.text.strip())
+                    item_info_element = row.find("font", face="arial,helvetica", size="-1")
+                    item_info = item_info_element.text.strip().split("<BR>")
 
                     # Find the item image
                     img_element = row.find("img")
