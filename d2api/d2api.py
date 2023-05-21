@@ -35,7 +35,9 @@ class D2Scraper(commands.Cog):
 
         # Properties we are interested in
         properties = ["defense:", "required level:", "required strength:", "durability:", 
-                    "<font color=4850B8>"]
+                    "better chance of getting magic items", "to all skills", "to life", 
+                    "to mana", "damage reduced by", "to all attributes"]
+        color_code = "4850B8"
 
         # Iterate over each row and extract the item details
         for row in rows:
@@ -46,6 +48,11 @@ class D2Scraper(commands.Cog):
                 if item_name in current_item_name:
                     raw_info = row.get_text(separator='\n')
                     item_info = [line for line in raw_info.split('\n') if any(prop in line.lower() for prop in properties)]
+
+                    # Find color coded information
+                    colored_elements = row.find_all("font", {"color": re.compile(color_code, re.I)})
+                    colored_info = [element.get_text() for element in colored_elements]
+                    item_info.extend(colored_info)
 
                     # Find the item image
                     img_element = row.find("img")
