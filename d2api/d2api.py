@@ -1,4 +1,5 @@
 import discord
+import re
 from redbot.core import commands
 from bs4 import BeautifulSoup
 import aiohttp
