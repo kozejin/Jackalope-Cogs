@@ -39,25 +39,25 @@ class D2Scraper(commands.Cog):
             if item_name_element:
                 current_item_name = item_name_element.text.strip().lower()
                 if item_name in current_item_name:
-                    item_info_element = row.find("font", face="arial,helvetica", size="-1")
-                    item_info = item_info_element.text.strip().split("<BR>")
+                    item_info_element = row.find("span")
+                    if item_info_element:
+                        item_info = item_info_element.text.strip()
 
-                    # Find the item image
-                    img_element = row.find("img")
-                    if img_element:
-                        item_image_url = BASE_URL + img_element["src"]
-                    else:
-                        item_image_url = None
+                        # Find the item image
+                        img_element = row.find("img")
+                        if img_element:
+                            item_image_url = BASE_URL + img_element["src"]
+                        else:
+                            item_image_url = None
 
-                    # Send the item details as a message
-                    embed = discord.Embed(title=current_item_name, color=discord.Color.green())
-                    if item_image_url:
-                        embed.set_thumbnail(url=item_image_url)
-                    if item_info:
-                        item_info_str = "\n".join(item_info)
-                        embed.description = item_info_str
-                    await ctx.send(embed=embed)
-                    return
+                        # Send the item details as a message
+                        embed = discord.Embed(title=current_item_name, color=discord.Color.green())
+                        if item_image_url:
+                            embed.set_thumbnail(url=item_image_url)
+                        if item_info:
+                            embed.description = item_info
+                        await ctx.send(embed=embed)
+                        return
 
         # If the item was not found, send an error message
         await ctx.send(f"Item '{item_name}' not found in the database.")
