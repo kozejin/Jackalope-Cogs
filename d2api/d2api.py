@@ -42,8 +42,8 @@ class D2Scraper(commands.Cog):
                 if item_name in current_item_name:
                     # Find the item properties
                     property_element = row.find("td", attrs={"width": "100%"})
+                    item_info = []  # Define item_info outside the condition
                     if property_element:
-                        item_info = []
                         for child in property_element.children:
                             if isinstance(child, NavigableString):
                                 item_info.append(child.strip())
