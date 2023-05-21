@@ -4,6 +4,7 @@ from redbot.core import commands
 from bs4 import BeautifulSoup
 import aiohttp
 from .d2keys import BASE_URL, ITEM_URLS
+from .d2const import properties, color_code
 
 class D2Scraper(commands.Cog):
     def __init__(self, bot):
@@ -31,12 +32,6 @@ class D2Scraper(commands.Cog):
 
             # Find all the item rows in the table
             rows = soup.find_all("tr")
-
-            # Properties we are interested in
-            properties = ["defense:", "required level:", "required strength:", "durability:", 
-                        "better chance of getting magic items", "to all skills", "to life", 
-                        "to mana", "damage reduced by", "to all attributes"]
-            color_code = "4850B8"
 
             # Iterate over each row and extract the item details
             for row in rows:
