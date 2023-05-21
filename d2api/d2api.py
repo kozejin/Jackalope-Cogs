@@ -69,6 +69,10 @@ class D2Scraper(commands.Cog):
                     if item_info:
                         item_info_str = "\n".join(item_info)
                         embed.description = item_info_str
+                    embed.set_image(url=item_image_url)  # Add an image to the embed
+                    embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar_url)
+                    embed.set_footer(text="Diablo 2 Item Details")
+                    embed.set_width(600)  # Set the width of the embed
                     await ctx.send(embed=embed)
                     return
 
