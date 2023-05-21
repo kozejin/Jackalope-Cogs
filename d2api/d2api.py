@@ -35,8 +35,7 @@ class D2Scraper(commands.Cog):
 
         # Properties we are interested in
         properties = ["defense:", "required level:", "required strength:", "durability:", 
-                    "better chance of getting magic items", "to all skills", "to life", 
-                    "to mana", "damage reduced by", "to all attributes"]
+                    "<font color=4850B8>"]
 
         # Iterate over each row and extract the item details
         for row in rows:
