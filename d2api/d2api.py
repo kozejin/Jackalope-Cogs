@@ -3,9 +3,9 @@ import re
 from redbot.core import commands
 from bs4 import BeautifulSoup
 import aiohttp
-from .d2keys import D2Keys
+from . import d2keys
 
-class D2Scraper(D2Keys, commands.Cog):
+class D2Scraper(d2keys, commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()  # HTTP session for making requests
