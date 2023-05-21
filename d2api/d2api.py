@@ -39,13 +39,11 @@ class D2Scraper(commands.Cog):
             if item_name_element:
                 current_item_name = item_name_element.text.strip().lower()
                 if item_name in current_item_name:
-                    # Find the item properties
-                    property_element = row.find("td", attrs={"width": "100%"})
-                    item_info = []  # Define item_info outside the condition
-                    if property_element:
-                        for string in property_element.stripped_strings:
-                            item_info.append(string)
-                    
+                    item_info_elements = row.find_all("font", face="arial,helvetica", size="-1")
+                    item_info = []
+                    for info_element in item_info_elements:
+                        item_info.append(info_element.text.strip())
+
                     # Find the item image
                     img_element = row.find("img")
                     if img_element:
@@ -65,6 +63,3 @@ class D2Scraper(commands.Cog):
 
         # If the item was not found, send an error message
         await ctx.send(f"Item '{item_name}' not found in the database.")
-
-    def cog_unload(self):
-        self.bot.loop.create_task(self.session.close())
