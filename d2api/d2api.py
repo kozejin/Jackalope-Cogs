@@ -1,21 +1,30 @@
 import discord
 from redbot.core import commands
-import requests
 from bs4 import BeautifulSoup
+import aiohttp
+
+BASE_URL = "https://classic.battle.net"
+ITEM_URL = f"{BASE_URL}/diablo2exp/items/elite/uhelms.shtml"
 
 class D2Scraper(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.session = aiohttp.ClientSession()  # HTTP session for making requests
+
+    async def fetch_html(self, url):
+        async with self.session.get(url) as response:
+            return await response.text()
 
     @commands.command()
     async def item(self, ctx, *item_name):
-        item_name = " ".join(item_name)  # Join the words in the item name
+        item_name = " ".join(item_name).lower()  # Join the words in the item name
 
-        url = "https://classic.battle.net/diablo2exp/items/elite/uhelms.shtml"
-
-        # Send a GET request to the URL and retrieve the page HTML
-        response = requests.get(url)
-        html = response.text
+        try:
+            # Send a GET request to the URL and retrieve the page HTML
+            html = await self.fetch_html(ITEM_URL)
+        except Exception as e:
+            await ctx.send(f"Error fetching data: {e}")
+            return
 
         # Create a BeautifulSoup object to parse the HTML
         soup = BeautifulSoup(html, "html.parser")
@@ -28,8 +37,8 @@ class D2Scraper(commands.Cog):
             # Find the item name
             item_name_element = row.find("b")
             if item_name_element:
-                current_item_name = item_name_element.text.strip()
-                if item_name.lower() in current_item_name.lower():
+                current_item_name = item_name_element.text.strip().lower()
+                if item_name in current_item_name:
                     item_info_elements = row.find_all("font", face="arial,helvetica", size="-1")
                     item_info = []
                     for info_element in item_info_elements:
@@ -38,7 +47,7 @@ class D2Scraper(commands.Cog):
                     # Find the item image
                     img_element = row.find("img")
                     if img_element:
-                        item_image_url = "https://classic.battle.net" + img_element["src"]
+                        item_image_url = BASE_URL + img_element["src"]
                     else:
                         item_image_url = None
 
