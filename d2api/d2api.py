@@ -2,7 +2,6 @@ import discord
 from redbot.core import commands
 from bs4 import BeautifulSoup
 import aiohttp
-from bs4.element import NavigableString
 
 BASE_URL = "https://classic.battle.net"
 ITEM_URL = f"{BASE_URL}/diablo2exp/items/elite/uhelms.shtml"
@@ -44,10 +43,9 @@ class D2Scraper(commands.Cog):
                     property_element = row.find("td", attrs={"width": "100%"})
                     item_info = []  # Define item_info outside the condition
                     if property_element:
-                        for child in property_element.children:
-                            if isinstance(child, NavigableString):
-                                item_info.append(child.strip())
-
+                        for string in property_element.stripped_strings:
+                            item_info.append(string)
+                    
                     # Find the item image
                     img_element = row.find("img")
                     if img_element:
