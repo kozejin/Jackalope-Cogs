@@ -63,7 +63,9 @@ class D2Scraper(commands.Cog):
                         item_image_url = None
 
                     # Send the item details as a message
-                    embed = discord.Embed(title=current_item_name.capitalize(), color=discord.Color.green())
+                    title = current_item_name.split(" ")
+                    title = " ".join(word.capitalize() for word in title)
+                    embed = discord.Embed(title=title, color=discord.Color.green())
                     if item_image_url:
                         embed.set_thumbnail(url=item_image_url)
                     if item_info:
