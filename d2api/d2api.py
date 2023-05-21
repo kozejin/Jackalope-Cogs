@@ -3,6 +3,29 @@ from redbot.core import commands
 import requests
 from bs4 import BeautifulSoup
 
+def scrape_item_details(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    table = soup.find('table')
+    rows = table.find_all('tr')
+
+    item_details = []
+
+    for row in rows:
+        columns = row.find_all('td')
+
+        if len(columns) == 2:
+            item_name = columns[0].find('b').text.strip()
+            item_type = columns[0].find_all('center')[1].text.strip()
+            item_stats = columns[1].text.strip()
+
+            item_details.append({
+                'Item Name': item_name,
+                'Item Type': item_type,
+                'Item Stats': item_stats
+            })
+
+    return item_details
+
 class D2Scraper(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -17,50 +40,21 @@ class D2Scraper(commands.Cog):
         response = requests.get(url)
         html = response.text
 
-        # Create a BeautifulSoup object to parse the HTML
-        soup = BeautifulSoup(html, "html.parser")
-
-        # Find all the item rows in the table
-        rows = soup.find_all("tr")
+        # Scrape item details
+        item_data = scrape_item_details(html)
 
         found_item = False  # Flag to check if the item is found
-        item_info = []  # List to store item details
 
-        # Iterate over each row and extract the item details
-        for row in rows:
-            # Find the item name
-            item_name_element = row.find("b")
-            if item_name_element:
-                current_item_name = item_name_element.text.strip()
-                if item_name.lower() in current_item_name.lower():
-                    found_item = True  # Set the flag to indicate item found
-                else:
-                    found_item = False  # Set the flag to indicate item not found
-                    continue  # Skip to the next row if item not found
+        for item in item_data:
+            if item_name.lower() in item['Item Name'].lower():
+                found_item = True  # Set the flag to indicate item found
 
-            # Find the item information
-            if found_item:
-                item_info_elements = row.find_all("font", face="arial,helvetica", size="-1")
-                for element in item_info_elements:
-                    item_info.append(element.text.strip())
+                # Send the item details as a message
+                embed = discord.Embed(title=item['Item Name'], description=item['Item Type'], color=discord.Color.green())
+                embed.add_field(name='Item Stats', value=item['Item Stats'])
+                await ctx.send(embed=embed)
+                break
 
-        # If the item was found, send the item details as a message
-        if found_item:
-            # Find the item image
-            img_element = soup.find("img", alt=current_item_name)
-            if img_element:
-                item_image_url = "https://classic.battle.net" + img_element["src"]
-            else:
-                item_image_url = None
-
-            # Send the item details as a message
-            embed = discord.Embed(title=current_item_name, color=discord.Color.green())
-            if item_image_url:
-                embed.set_thumbnail(url=item_image_url)
-            if item_info:
-                item_info_str = "\n".join(item_info)
-                embed.description = item_info_str
-            await ctx.send(embed=embed)
-        else:
+        if not found_item:
             # If the item was not found, send an error message
             await ctx.send(f"Item '{item_name}' not found in the database.")
