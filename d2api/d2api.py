@@ -2,6 +2,7 @@ import discord
 from redbot.core import commands
 from bs4 import BeautifulSoup
 import aiohttp
+from bs4.element import NavigableString
 
 BASE_URL = "https://classic.battle.net"
 ITEM_URL = f"{BASE_URL}/diablo2exp/items/elite/uhelms.shtml"
@@ -39,10 +40,13 @@ class D2Scraper(commands.Cog):
             if item_name_element:
                 current_item_name = item_name_element.text.strip().lower()
                 if item_name in current_item_name:
-                    item_info_elements = row.find_all("font", face="arial,helvetica", size="-1")
-                    item_info = []
-                    for info_element in item_info_elements:
-                        item_info.append(info_element.text.strip())
+                    # Find the item properties
+                    property_element = row.find("td", attrs={"width": "100%"})
+                    if property_element:
+                        item_info = []
+                        for child in property_element.children:
+                            if isinstance(child, NavigableString):
+                                item_info.append(child.strip())
 
                     # Find the item image
                     img_element = row.find("img")
@@ -63,3 +67,6 @@ class D2Scraper(commands.Cog):
 
         # If the item was not found, send an error message
         await ctx.send(f"Item '{item_name}' not found in the database.")
+
+    def cog_unload(self):
+        self.bot.loop.create_task(self.session.close())
