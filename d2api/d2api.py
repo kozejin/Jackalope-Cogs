@@ -47,7 +47,8 @@ class D2Scraper(commands.Cog):
                 current_item_name = item_name_element.text.strip().lower()
                 if item_name in current_item_name:
                     raw_info = row.get_text(separator='\n')
-                    item_info = [line for line in raw_info.split('\n') if any(prop in line.lower() for prop in properties)]
+                    item_info = [line for line in raw_info.split('\n') 
+                                if any(prop in line.lower() for prop in properties) or "-" in line]
 
                     # Find color coded information
                     colored_elements = row.find_all("font", {"color": re.compile(color_code, re.I)})
