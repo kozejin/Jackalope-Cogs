@@ -34,8 +34,9 @@ class D2Scraper(commands.Cog):
         rows = soup.find_all("tr")
 
         # Properties we are interested in
-        properties = ["Defense:", "Required Level:", "Required Strength:", "Durability:", 
-                    "<font color=4850B8>"]
+        properties = ["defense:", "required level:", "required strength:", "durability:", 
+                    "better chance of getting magic items", "to all skills", "to life", 
+                    "to mana", "damage reduced by", "to all attributes"]
 
         # Iterate over each row and extract the item details
         for row in rows:
@@ -44,11 +45,8 @@ class D2Scraper(commands.Cog):
             if item_name_element:
                 current_item_name = item_name_element.text.strip().lower()
                 if item_name in current_item_name:
-                    item_info = ""
-                    for prop in properties:
-                        match = re.search(f"{prop}.*?<br>", str(row), re.IGNORECASE)
-                        if match:
-                            item_info += BeautifulSoup(match.group(), "html.parser").text + "\n"
+                    raw_info = row.get_text(separator='\n')
+                    item_info = [line for line in raw_info.split('\n') if any(prop in line.lower() for prop in properties)]
 
                     # Find the item image
                     img_element = row.find("img")
@@ -62,7 +60,8 @@ class D2Scraper(commands.Cog):
                     if item_image_url:
                         embed.set_thumbnail(url=item_image_url)
                     if item_info:
-                        embed.description = item_info
+                        item_info_str = "\n".join(item_info)
+                        embed.description = item_info_str
                     await ctx.send(embed=embed)
                     return
 
