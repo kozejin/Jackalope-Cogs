@@ -32,6 +32,10 @@ class D2Scraper(commands.Cog):
         # Find all the item rows in the table
         rows = soup.find_all("tr")
 
+        # Properties we are interested in
+        properties = ["Defense:", "Required Level:", "Required Strength:", "Durability:", 
+                    "<font color=4850B8>"]
+
         # Iterate over each row and extract the item details
         for row in rows:
             # Find the item name
@@ -39,25 +43,27 @@ class D2Scraper(commands.Cog):
             if item_name_element:
                 current_item_name = item_name_element.text.strip().lower()
                 if item_name in current_item_name:
-                    item_info_element = row.find("span")
-                    if item_info_element:
-                        item_info = item_info_element.text.strip()
+                    item_info = ""
+                    for prop in properties:
+                        match = re.search(f"{prop}.*?<br>", str(row), re.IGNORECASE)
+                        if match:
+                            item_info += BeautifulSoup(match.group(), "html.parser").text + "\n"
 
-                        # Find the item image
-                        img_element = row.find("img")
-                        if img_element:
-                            item_image_url = BASE_URL + img_element["src"]
-                        else:
-                            item_image_url = None
+                    # Find the item image
+                    img_element = row.find("img")
+                    if img_element:
+                        item_image_url = BASE_URL + img_element["src"]
+                    else:
+                        item_image_url = None
 
-                        # Send the item details as a message
-                        embed = discord.Embed(title=current_item_name, color=discord.Color.green())
-                        if item_image_url:
-                            embed.set_thumbnail(url=item_image_url)
-                        if item_info:
-                            embed.description = item_info
-                        await ctx.send(embed=embed)
-                        return
+                    # Send the item details as a message
+                    embed = discord.Embed(title=current_item_name, color=discord.Color.green())
+                    if item_image_url:
+                        embed.set_thumbnail(url=item_image_url)
+                    if item_info:
+                        embed.description = item_info
+                    await ctx.send(embed=embed)
+                    return
 
         # If the item was not found, send an error message
         await ctx.send(f"Item '{item_name}' not found in the database.")
