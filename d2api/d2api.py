@@ -3,7 +3,7 @@ import re
 from redbot.core import commands
 from bs4 import BeautifulSoup
 import aiohttp
-from . import d2keys
+from .d2keys import BASE_URL, ITEM_URLS
 
 class D2Scraper(commands.Cog):
     def __init__(self, bot):
