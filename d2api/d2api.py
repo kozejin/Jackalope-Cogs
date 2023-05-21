@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import aiohttp
 from . import d2keys
 
-class D2Scraper(d2keys, commands.Cog):
+class D2Scraper(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()  # HTTP session for making requests
